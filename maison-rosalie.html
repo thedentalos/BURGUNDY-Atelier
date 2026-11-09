@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maison Rosalie — Women's Clothing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink: #f6dfe2;
+    --pink-soft: #fbeef0;
+    --cream: #fdf8f5;
+    --burgundy: #5c1427;
+    --burgundy-deep: #44101d;
+    --ink: #3a2a2d;
+    --line: rgba(92, 20, 39, 0.18);
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Jost', 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  .container { width: min(1180px, 92%); margin: 0 auto; }
+
+  /* Announcement bar */
+  .announce {
+    background: var(--burgundy);
+    color: var(--pink);
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    padding: 10px 16px;
+  }
+
+  /* Header */
+  header {
+    background: var(--cream);
+    border-bottom: 1px solid var(--line);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .nav {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding: 22px 0;
+  }
+  .nav ul { list-style: none; display: flex; gap: 32px; }
+  .nav ul.right { justify-content: flex-end; }
+  .nav a {
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--burgundy);
+    transition: opacity .3s;
+  }
+  .nav a:hover { opacity: .55; }
+  .logo {
+    font-family: var(--serif);
+    font-size: 30px;
+    font-weight: 400;
+    letter-spacing: 0.14em;
+    color: var(--burgundy);
+    text-transform: uppercase;
+    text-align: center;
+  }
+  .logo small {
+    display: block;
+    font-family: var(--sans);
+    font-size: 9px;
+    letter-spacing: 0.5em;
+    margin-top: -2px;
+    opacity: .7;
+  }
+
+  /* Hero */
+  .hero {
+    background: var(--pink);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 78vh;
+  }
+  .hero-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 8%;
+  }
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--burgundy);
+    margin-bottom: 28px;
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(44px, 6vw, 84px);
+    line-height: 1.02;
+    color: var(--burgundy);
+    margin-bottom: 28px;
+  }
+  .hero h1 em { font-style: italic; }
+  .hero p {
+    max-width: 380px;
+    margin-bottom: 40px;
+    color: var(--burgundy-deep);
+  }
+  .btn {
+    display: inline-block;
+    align-self: flex-start;
+    background: var(--burgundy);
+    color: var(--pink-soft);
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    padding: 16px 38px;
+    border: 1px solid var(--burgundy);
+    transition: all .35s ease;
+  }
+  .btn:hover { background: transparent; color: var(--burgundy); }
+  .btn.ghost { background: transparent; color: var(--burgundy); }
+  .btn.ghost:hover { background: var(--burgundy); color: var(--pink-soft); }
+
+  /* Image placeholders — replace with <img> tags */
+  .ph {
+    position: relative;
+    background: linear-gradient(160deg, #e9c3c9 0%, #f6dfe2 55%, #fbeef0 100%);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .ph::after {
+    content: "Image";
+    position: absolute;
+    top: 14px; right: 16px;
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--burgundy);
+    opacity: .4;
+  }
+  .ph.dark { background: linear-gradient(160deg, #6e1a31 0%, #5c1427 60%, #44101d 100%); }
+  .ph.dark::after { color: var(--pink); }
+  .hero .ph { min-height: 420px; }
+  .hero .ph::before {
+    content: "";
+    position: absolute;
+    inset: 9%;
+    border: 1px solid rgba(92, 20, 39, .35);
+  }
+
+  /* Sections */
+  section { padding: 110px 0; }
+  .section-head { text-align: center; margin-bottom: 64px; }
+  .section-head h2 {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(32px, 4vw, 48px);
+    color: var(--burgundy);
+    letter-spacing: 0.04em;
+  }
+  .rule {
+    width: 48px; height: 1px;
+    background: var(--burgundy);
+    margin: 22px auto 0;
+    opacity: .5;
+  }
+
+  /* Collections */
+  .collections {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .collection .ph { aspect-ratio: 3 / 4; margin-bottom: 18px; transition: transform .6s ease; }
+  .collection:hover .ph { transform: scale(1.015); }
+  .collection h3 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 24px;
+    color: var(--burgundy);
+    text-align: center;
+  }
+  .collection span {
+    display: block;
+    text-align: center;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    opacity: .6;
+  }
+
+  /* Statement */
+  .statement {
+    background: var(--burgundy);
+    color: var(--pink);
+    text-align: center;
+  }
+  .statement blockquote {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(28px, 3.6vw, 46px);
+    line-height: 1.3;
+    max-width: 820px;
+    margin: 0 auto 30px;
+  }
+  .statement cite {
+    font-style: normal;
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    opacity: .75;
+  }
+
+  /* Products */
+  .products {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 26px;
+  }
+  .product .ph { aspect-ratio: 4 / 5; margin-bottom: 16px; }
+  .product h4 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 20px;
+    color: var(--burgundy);
+  }
+  .product p { font-size: 13px; letter-spacing: 0.08em; opacity: .75; }
+  .center { text-align: center; margin-top: 56px; }
+
+  /* Split story */
+  .story {
+    background: var(--pink-soft);
+  }
+  .story-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .story .ph { aspect-ratio: 4 / 5; }
+  .story h2 {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(34px, 4vw, 52px);
+    line-height: 1.1;
+    color: var(--burgundy);
+    margin: 18px 0 26px;
+  }
+  .story p { margin-bottom: 20px; max-width: 440px; }
+
+  /* Newsletter */
+  .newsletter { text-align: center; }
+  .newsletter p { max-width: 460px; margin: 18px auto 36px; }
+  .newsletter form {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .newsletter input {
+    flex: 1;
+    padding: 16px 20px;
+    border: 1px solid var(--burgundy);
+    border-right: none;
+    background: transparent;
+    font-family: var(--sans);
+    font-size: 13px;
+    color: var(--burgundy);
+    outline: none;
+  }
+  .newsletter input::placeholder { color: var(--burgundy); opacity: .5; }
+  .newsletter button {
+    background: var(--burgundy);
+    color: var(--pink-soft);
+    border: 1px solid var(--burgundy);
+    padding: 0 30px;
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all .3s;
+  }
+  .newsletter button:hover { background: var(--burgundy-deep); }
+
+  /* Footer */
+  footer {
+    background: var(--burgundy-deep);
+    color: var(--pink);
+    padding: 80px 0 36px;
+  }
+  .foot-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr 1fr;
+    gap: 48px;
+    padding-bottom: 56px;
+    border-bottom: 1px solid rgba(246, 223, 226, .2);
+  }
+  footer .logo { color: var(--pink); text-align: left; font-size: 26px; }
+  footer p { font-size: 13px; opacity: .7; margin-top: 18px; max-width: 280px; }
+  footer h5 {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-weight: 400;
+    margin-bottom: 20px;
+  }
+  footer ul { list-style: none; }
+  footer li { margin-bottom: 10px; font-size: 13px; opacity: .75; }
+  footer li a:hover { opacity: .6; }
+  .copy {
+    padding-top: 28px;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: .55;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .nav { grid-template-columns: 1fr; gap: 14px; justify-items: center; }
+    .nav ul, .nav ul.right { justify-content: center; gap: 22px; }
+    .nav .logo { order: -1; }
+    .hero, .story-grid { grid-template-columns: 1fr; }
+    .hero .ph { min-height: 380px; }
+    .collections { grid-template-columns: 1fr; }
+    .products { grid-template-columns: repeat(2, 1fr); }
+    .foot-grid { grid-template-columns: 1fr 1fr; }
+    .story-grid { gap: 40px; }
+    section { padding: 80px 0; }
+  }
+  @media (max-width: 520px) {
+    .products { grid-template-columns: 1fr; }
+    .copy { flex-direction: column; gap: 8px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="announce">Complimentary shipping on orders over $150</div>
+
+  <header>
+    <div class="container nav">
+      <ul>
+        <li><a href="#collections">Collections</a></li>
+        <li><a href="#new">New Arrivals</a></li>
+        <li><a href="#story">Our Story</a></li>
+      </ul>
+      <a href="#" class="logo">Maison Rosalie<small>Est. 2024</small></a>
+      <ul class="right">
+        <li><a href="#">Search</a></li>
+        <li><a href="#">Account</a></li>
+        <li><a href="#">Bag (0)</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-text">
+      <span class="eyebrow">Autumn / Winter Collection</span>
+      <h1>Quiet <em>elegance,</em><br>worn well.</h1>
+      <p>Timeless tailoring and soft, considered pieces made to be cherished for years, not seasons.</p>
+      <a href="#collections" class="btn">Discover the Collection</a>
+    </div>
+    <div class="ph"></div>
+  </div>
+
+  <!-- Collections -->
+  <section id="collections">
+    <div class="container">
+      <div class="section-head">
+        <h2>The Collections</h2>
+        <div class="rule"></div>
+      </div>
+      <div class="collections">
+        <a href="#" class="collection">
+          <div class="ph"></div>
+          <h3>Tailoring</h3>
+          <span>Shop now</span>
+        </a>
+        <a href="#" class="collection">
+          <div class="ph dark"></div>
+          <h3>Knitwear</h3>
+          <span>Shop now</span>
+        </a>
+        <a href="#" class="collection">
+          <div class="ph"></div>
+          <h3>Evening</h3>
+          <span>Shop now</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Statement -->
+  <section class="statement">
+    <div class="container">
+      <blockquote>"Dress as though every day were worth remembering."</blockquote>
+      <cite>— The Maison Philosophy</cite>
+    </div>
+  </section>
+
+  <!-- New Arrivals -->
+  <section id="new">
+    <div class="container">
+      <div class="section-head">
+        <h2>New Arrivals</h2>
+        <div class="rule"></div>
+      </div>
+      <div class="products">
+        <a href="#" class="product">
+          <div class="ph"></div>
+          <h4>The Camille Coat</h4>
+          <p>$420</p>
+        </a>
+        <a href="#" class="product">
+          <div class="ph dark"></div>
+          <h4>Odette Cashmere Knit</h4>
+          <p>$265</p>
+        </a>
+        <a href="#" class="product">
+          <div class="ph"></div>
+          <h4>The Margaux Skirt</h4>
+          <p>$195</p>
+        </a>
+        <a href="#" class="product">
+          <div class="ph dark"></div>
+          <h4>Hélène Silk Blouse</h4>
+          <p>$210</p>
+        </a>
+      </div>
+      <div class="center">
+        <a href="#" class="btn ghost">View All</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Story -->
+  <section class="story" id="story">
+    <div class="container story-grid">
+      <div class="ph"></div>
+      <div>
+        <span class="eyebrow">Our Story</span>
+        <h2>Crafted with<br>restraint.</h2>
+        <p>Maison Rosalie was founded on a simple belief: that true style needs no announcement. Each garment is cut from natural fibres and finished by hand, in small quantities.</p>
+        <p>From the first sketch to the final stitch, we design pieces that grow more beautiful with wear.</p>
+        <a href="#" class="btn ghost" style="margin-top:14px">Read More</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="newsletter">
+    <div class="container">
+      <div class="section-head" style="margin-bottom:0">
+        <h2>Join the Maison</h2>
+        <div class="rule"></div>
+      </div>
+      <p>Be the first to hear of new collections, private sales and quiet little letters from the atelier.</p>
+      <form onsubmit="event.preventDefault(); this.reset(); alert('Thank you — welcome to the Maison.');">
+        <input type="email" placeholder="Your email address" required>
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="foot-grid">
+        <div>
+          <div class="logo">Maison Rosalie</div>
+          <p>Timeless women's clothing, designed with care and made to last.</p>
+        </div>
+        <div>
+          <h5>Shop</h5>
+          <ul>
+            <li><a href="#">New Arrivals</a></li>
+            <li><a href="#">Tailoring</a></li>
+            <li><a href="#">Knitwear</a></li>
+            <li><a href="#">Evening</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Care</h5>
+          <ul>
+            <li><a href="#">Shipping</a></li>
+            <li><a href="#">Returns</a></li>
+            <li><a href="#">Size Guide</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Follow</h5>
+          <ul>
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">Pinterest</a></li>
+            <li><a href="#">Journal</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copy">
+        <span>© 2026 Maison Rosalie</span>
+        <span>Privacy · Terms</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

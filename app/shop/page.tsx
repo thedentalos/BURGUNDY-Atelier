@@ -1,0 +1,4 @@
+import type { Metadata } from "next";
+import { CollectionGallery } from "@/components/collection-gallery";
+export const metadata:Metadata={title:"The collection",description:"Five pieces in ivory, burgundy and floral prints. Explore the Fall 2026 collection from Burgundy Atelier."};
+export default function ShopPage(){return <main id="main-content"><section className="collection-heading page-width"><p className="eyebrow">The wardrobe / Fall 2026</p><h1>The <em>collection.</em></h1><div className="collection-intro"><p>From a small floral to a single shade.<br />Five pieces, each with its own point of view.</p><span className="eyebrow">Shirts &amp; co-ords</span></div></section><section className="page-width collection-body" aria-label="Shop the collection"><CollectionGallery /></section></main>}

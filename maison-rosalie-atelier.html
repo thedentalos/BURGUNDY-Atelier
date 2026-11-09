@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maison Rosalie — Quietly Dressed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js');</script>
+<style>
+  /* ---------- Palette: baby pink, burgundy, white. Nothing else. ---------- */
+  :root {
+    --pink: #f8dbe0;
+    --burgundy: #5c1427;
+    --white: #ffffff;
+    --line: rgba(92, 20, 39, .22);
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Jost', 'Helvetica Neue', Arial, sans-serif;
+    --script: 'Pinyon Script', cursive;
+    --ease: cubic-bezier(.2, .7, .2, 1);
+
+    /* garment illustration colours (overridden per context) */
+    --garment: transparent;
+    --outline: var(--burgundy);
+    --detail: var(--burgundy);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--white);
+    color: var(--burgundy);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+  ::selection { background: var(--pink); color: var(--burgundy); }
+  a { color: inherit; text-decoration: none; }
+  ul { list-style: none; }
+  button { font-family: inherit; }
+  .wrap { width: min(1240px, 92%); margin: 0 auto; }
+  section[id] { scroll-margin-top: 80px; }
+
+  .eyebrow {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: .42em;
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+  h1, h2, h3 { font-family: var(--serif); font-weight: 300; line-height: 1; }
+  em { font-style: italic; }
+
+  /* Scroll reveal (only when JS is on) */
+  .js .reveal { opacity: 0; transform: translateY(30px); transition: opacity 1s var(--ease), transform 1s var(--ease); transition-delay: var(--d, 0s); }
+  .js .reveal.in { opacity: 1; transform: none; }
+
+  /* ---------- Curtain intro ---------- */
+  .curtain { position: fixed; inset: 0; z-index: 100; pointer-events: none; animation: gone 0s linear 2.4s forwards; }
+  .curtain i { position: absolute; top: 0; bottom: 0; width: 50.5%; background: var(--pink); }
+  .curtain i:nth-child(1) { left: 0; animation: openL 1.2s var(--ease) 1.25s forwards; }
+  .curtain i:nth-child(2) { right: 0; animation: openR 1.2s var(--ease) 1.25s forwards; }
+  .curtain b {
+    position: absolute; inset: 0; display: grid; place-content: center; text-align: center;
+    font-family: var(--serif); font-weight: 300; font-style: italic;
+    font-size: clamp(40px, 7vw, 84px); letter-spacing: .02em;
+    opacity: 0; animation: introText 1.9s ease .1s forwards;
+  }
+  .curtain b small {
+    font-family: var(--sans); font-style: normal; font-size: 10px; letter-spacing: .55em; text-transform: uppercase; margin-bottom: 6px;
+  }
+  @keyframes openL { to { transform: translateX(-101%); } }
+  @keyframes openR { to { transform: translateX(101%); } }
+  @keyframes introText { 0% { opacity: 0; transform: translateY(14px); } 30%, 70% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+  @keyframes gone { to { visibility: hidden; } }
+
+  /* ---------- Header ---------- */
+  header.top {
+    position: sticky; top: 0; z-index: 20;
+    background: rgba(255, 255, 255, .92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 14px 0; }
+  .nav ul { display: flex; gap: 34px; }
+  .nav ul.r { justify-content: flex-end; }
+  .nav a.l {
+    font-size: 11px; letter-spacing: .26em; text-transform: uppercase;
+    background: linear-gradient(var(--burgundy), var(--burgundy)) left bottom / 0 1px no-repeat;
+    transition: background-size .45s var(--ease); padding-bottom: 3px;
+  }
+  .nav a.l:hover { background-size: 100% 1px; }
+  .logo { text-align: center; line-height: .9; }
+  .logo small { display: block; font-size: 9px; letter-spacing: .6em; text-transform: uppercase; padding-left: .6em; }
+  .logo span { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 36px; letter-spacing: .01em; }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    display: grid; grid-template-columns: 1.2fr .8fr; gap: 4vw; align-items: center;
+    padding: 70px 0 100px; position: relative; min-height: calc(100vh - 70px);
+  }
+  .hero h1 { font-size: clamp(56px, 8.6vw, 134px); letter-spacing: -.025em; line-height: .9; margin: 26px 0 34px; }
+  .hero h1 .l2 { display: block; padding-left: 1.1em; }
+  .hero h1 em {
+    background: linear-gradient(transparent 56%, var(--pink) 56%, var(--pink) 90%, transparent 90%);
+    padding: 0 .06em;
+  }
+  .hero p.lede { max-width: 400px; margin-bottom: 40px; opacity: .85; }
+  .cta { display: flex; align-items: center; gap: 34px; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; background: var(--burgundy); color: var(--pink);
+    font-size: 11px; letter-spacing: .3em; text-transform: uppercase;
+    padding: 18px 40px; border: 1px solid var(--burgundy); cursor: pointer;
+    transition: background .4s var(--ease), color .4s var(--ease);
+  }
+  .btn:hover { background: var(--pink); color: var(--burgundy); }
+  .btn.alt { background: transparent; color: var(--burgundy); }
+  .btn.alt:hover { background: var(--burgundy); color: var(--pink); }
+  .tlink {
+    font-size: 11px; letter-spacing: .3em; text-transform: uppercase; padding-bottom: 4px;
+    border-bottom: 1px solid var(--burgundy); transition: letter-spacing .4s var(--ease);
+  }
+  .tlink:hover { letter-spacing: .38em; }
+
+  .arch-wrap { position: relative; justify-self: center; width: min(430px, 78vw); }
+  .arch {
+    aspect-ratio: 3 / 4.3; background: var(--pink); border-radius: 999px 999px 0 0;
+    display: grid; place-items: center; position: relative;
+    --garment: var(--white);
+  }
+  .arch::before {
+    content: ""; position: absolute; inset: -16px; border: 1px solid var(--burgundy);
+    border-radius: 999px 999px 0 0; opacity: .5; pointer-events: none;
+  }
+  .arch svg { width: 72%; transform-origin: 50% 11%; animation: sway 6s ease-in-out infinite alternate; overflow: visible; }
+  @keyframes sway { from { transform: rotate(-2.2deg); } to { transform: rotate(2.2deg); } }
+  .vert {
+    position: absolute; right: -44px; top: 50%; transform: translateY(-50%);
+    writing-mode: vertical-rl; font-size: 10px; letter-spacing: .5em; text-transform: uppercase;
+  }
+  .seal { position: absolute; left: -70px; bottom: 34px; width: 150px; height: 150px; }
+  .seal svg { width: 100%; height: 100%; animation: spin 28s linear infinite; }
+  .seal b {
+    position: absolute; inset: 0; display: grid; place-items: center;
+    font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 44px; color: var(--pink);
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ---------- Marquee ---------- */
+  .marquee { background: var(--burgundy); color: var(--pink); overflow: hidden; white-space: nowrap; padding: 22px 0; }
+  .track { display: inline-flex; animation: scroll 38s linear infinite; }
+  .marquee:hover .track { animation-play-state: paused; }
+  .track span { font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(26px, 3.2vw, 42px); display: inline-flex; align-items: center; }
+  .track span::after {
+    content: ""; width: 8px; height: 8px; border: 1px solid var(--pink); transform: rotate(45deg); margin: 0 44px;
+  }
+  @keyframes scroll { to { transform: translateX(-50%); } }
+
+  /* ---------- Index ---------- */
+  .index { padding: 130px 0 120px; }
+  .idx-head { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: end; margin-bottom: 70px; }
+  .idx-head h2 { font-size: clamp(40px, 5.6vw, 82px); letter-spacing: -.02em; margin-top: 22px; }
+  .idx-head p { max-width: 360px; justify-self: end; opacity: .8; }
+  .idx { border-top: 1px solid var(--burgundy); }
+  .idx li { border-bottom: 1px solid var(--line); }
+  .idx a {
+    position: relative; isolation: isolate; display: grid;
+    grid-template-columns: 56px 1fr 210px 80px 36px; gap: 20px; align-items: center; padding: 34px 14px;
+  }
+  .idx a::before {
+    content: ""; position: absolute; inset: 0; z-index: -1; background: var(--pink);
+    transform: scaleX(0); transform-origin: left; transition: transform .55s var(--ease);
+  }
+  .idx a:hover::before, .idx a:focus-visible::before { transform: scaleX(1); }
+  .idx .n { font-size: 12px; letter-spacing: .25em; transition: transform .5s var(--ease); }
+  .idx .t { font-family: var(--serif); font-weight: 300; font-size: clamp(30px, 4.6vw, 66px); line-height: 1.05; transition: transform .5s var(--ease); }
+  .idx .t em { opacity: .0; transition: opacity .4s; }
+  .idx a:hover .t { transform: translateX(18px); font-style: italic; }
+  .idx a:hover .n { transform: translateX(10px); }
+  .idx .c { font-size: 11px; letter-spacing: .24em; text-transform: uppercase; }
+  .idx .p { font-family: var(--serif); font-size: 26px; text-align: right; }
+  .idx .ar { font-size: 22px; transition: transform .5s var(--ease); }
+  .idx a:hover .ar { transform: translateX(8px); }
+  .idx .ico { display: none; }
+
+  .peek { position: fixed; top: 0; left: 0; z-index: 30; pointer-events: none; }
+  .peek-in {
+    width: 190px; height: 258px; background: var(--pink); border: 1px solid var(--burgundy);
+    border-radius: 999px 999px 0 0; display: grid; place-items: center; --garment: var(--white);
+    opacity: 0; transform: scale(.78); transition: opacity .3s, transform .45s var(--ease);
+  }
+  .peek.on .peek-in { opacity: 1; transform: scale(1); }
+  .peek svg { width: 78%; }
+  @media (hover: none), (pointer: coarse) { .peek { display: none; } }
+
+  /* ---------- Quote ---------- */
+  .quote { background: var(--pink); padding: 150px 0; position: relative; overflow: hidden; text-align: center; }
+  .quote::before, .quote::after {
+    content: ""; position: absolute; width: 520px; height: 520px; border: 1px solid var(--burgundy); border-radius: 50%; opacity: .28;
+  }
+  .quote::before { left: -180px; top: -140px; }
+  .quote::after { right: -150px; bottom: -200px; width: 640px; height: 640px; }
+  .quote blockquote {
+    position: relative; font-family: var(--serif); font-weight: 300; font-size: clamp(38px, 6vw, 88px);
+    line-height: 1.02; letter-spacing: -.02em; max-width: 1000px; margin: 28px auto 30px;
+  }
+  .quote blockquote em { display: block; }
+  .sign { font-family: var(--script); font-size: clamp(48px, 6vw, 76px); line-height: 1; position: relative; }
+  .sign-sub { position: relative; font-size: 10px; letter-spacing: .5em; text-transform: uppercase; margin-top: 8px; }
+
+  /* ---------- Fitting room ---------- */
+  .fitting { padding: 140px 0; }
+  .fit-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 8vw; align-items: center; }
+  .fit-stage {
+    --bg: var(--burgundy); aspect-ratio: 3 / 4.1; max-width: 460px; width: 100%; margin: 0 auto;
+    background: var(--bg); border: 1px solid var(--burgundy); border-radius: 999px 999px 0 0;
+    display: grid; place-items: center; transition: background-color .7s var(--ease); position: relative;
+  }
+  .fit-stage[data-shade="blush"]   { --bg: var(--burgundy); --garment: var(--pink);     --outline: var(--white);    --detail: var(--burgundy); }
+  .fit-stage[data-shade="bordeaux"]{ --bg: var(--white);    --garment: var(--burgundy); --outline: var(--burgundy); --detail: var(--pink); }
+  .fit-stage[data-shade="blanc"]   { --bg: var(--pink);     --garment: var(--white);    --outline: var(--burgundy); --detail: var(--burgundy); }
+  .fit-stage svg { width: 68%; overflow: visible; transform-origin: 50% 11%; }
+  .fit-stage.pop svg { animation: pop .8s var(--ease); }
+  @keyframes pop { 0% { transform: rotate(-5deg) scale(.96); } 60% { transform: rotate(2deg); } 100% { transform: none; } }
+  .fit-copy h2 { font-size: clamp(40px, 5vw, 72px); letter-spacing: -.02em; margin: 22px 0 26px; }
+  .fit-copy p.d { max-width: 420px; margin-bottom: 38px; opacity: .85; }
+  .swatches { display: flex; gap: 18px; margin-bottom: 18px; }
+  .sw {
+    width: 54px; height: 54px; border-radius: 50%; border: 1px solid var(--burgundy); cursor: pointer;
+    position: relative; transition: transform .4s var(--ease);
+  }
+  .sw:hover { transform: translateY(-4px); }
+  .sw[data-shade="blush"] { background: var(--pink); }
+  .sw[data-shade="bordeaux"] { background: var(--burgundy); }
+  .sw[data-shade="blanc"] { background: var(--white); }
+  .sw[aria-pressed="true"]::after { content: ""; position: absolute; inset: -7px; border: 1px solid var(--burgundy); border-radius: 50%; }
+  .shade-line { font-family: var(--serif); font-size: 30px; font-style: italic; margin-bottom: 4px; }
+  .shade-note { font-size: 13px; letter-spacing: .08em; opacity: .75; margin-bottom: 38px; min-height: 24px; }
+
+  /* ---------- Pillars ---------- */
+  .pillars { border-top: 1px solid var(--burgundy); border-bottom: 1px solid var(--burgundy); }
+  .pillars .wrap { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .pillar { padding: 70px 44px 80px; border-left: 1px solid var(--line); }
+  .pillar:first-child { border-left: none; padding-left: 0; }
+  .pillar:last-child { padding-right: 0; }
+  .pillar .num {
+    font-family: var(--serif); font-style: italic; font-weight: 300; font-size: 120px; line-height: .9;
+    color: transparent; -webkit-text-stroke: 1px var(--burgundy); margin-bottom: 24px; transition: color .5s;
+  }
+  .pillar:hover .num { color: var(--pink); }
+  .pillar h3 { font-size: 34px; margin-bottom: 14px; }
+  .pillar p { max-width: 300px; opacity: .85; }
+
+  /* ---------- Letter ---------- */
+  .letter { padding: 150px 0; text-align: center; }
+  .letter h2 { font-size: clamp(42px, 6vw, 90px); letter-spacing: -.02em; margin: 22px 0 24px; }
+  .letter p { max-width: 440px; margin: 0 auto 50px; opacity: .85; }
+  .letter form { display: flex; max-width: 560px; margin: 0 auto; border-bottom: 1px solid var(--burgundy); }
+  .letter input {
+    flex: 1; background: transparent; border: none; outline: none; padding: 18px 0;
+    font-family: var(--serif); font-size: 28px; font-style: italic; color: var(--burgundy);
+  }
+  .letter input::placeholder { color: var(--burgundy); opacity: .45; }
+  .letter button {
+    background: none; border: none; cursor: pointer; color: var(--burgundy); font-size: 11px; letter-spacing: .3em; text-transform: uppercase;
+    transition: letter-spacing .4s var(--ease);
+  }
+  .letter button:hover { letter-spacing: .42em; }
+  .thanks { font-family: var(--script); font-size: 54px; line-height: 1.1; }
+
+  /* ---------- Footer ---------- */
+  footer { background: var(--burgundy); color: var(--pink); padding: 90px 0 0; overflow: hidden; }
+  .foot-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 60px; }
+  footer .flogo { font-family: var(--serif); font-style: italic; font-size: 34px; line-height: 1; }
+  footer p { font-size: 13px; opacity: .75; margin-top: 16px; max-width: 270px; }
+  footer h5 { font-size: 11px; font-weight: 400; letter-spacing: .32em; text-transform: uppercase; margin-bottom: 20px; }
+  footer li { font-size: 14px; margin-bottom: 10px; opacity: .8; }
+  footer li a:hover { opacity: .6; }
+  .mega {
+    font-family: var(--serif); font-style: italic; font-weight: 300; text-align: center;
+    font-size: clamp(100px, 26vw, 420px); line-height: .76; letter-spacing: -.03em;
+    margin: 10px 0 -.12em; user-select: none; color: var(--pink);
+  }
+  .legal {
+    display: flex; justify-content: space-between; font-size: 10px; letter-spacing: .24em; text-transform: uppercase;
+    padding: 24px 0; border-top: 1px solid rgba(248, 219, 224, .25); opacity: .7; position: relative; z-index: 1; background: var(--burgundy);
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 960px) {
+    .nav { grid-template-columns: 1fr; gap: 10px; justify-items: center; padding: 12px 0; }
+    .nav ul, .nav ul.r { justify-content: center; gap: 20px; }
+    .logo { order: -1; }
+    .hero { grid-template-columns: 1fr; padding: 50px 0 90px; gap: 80px; min-height: 0; }
+    .hero h1 .l2 { padding-left: .5em; }
+    .seal { left: -20px; width: 120px; height: 120px; }
+    .vert { display: none; }
+    .idx-head, .fit-grid { grid-template-columns: 1fr; }
+    .idx-head p { justify-self: start; }
+    .idx a { grid-template-columns: 46px 1fr auto; gap: 14px; padding: 26px 8px; }
+    .idx .c, .idx .ar { display: none; }
+    .idx .ico { display: block; width: 44px; }
+    .idx .n { display: none; }
+    .idx a { grid-template-columns: 52px 1fr auto; }
+    .pillars .wrap { grid-template-columns: 1fr; }
+    .pillar, .pillar:first-child, .pillar:last-child { padding: 50px 0; border-left: none; border-top: 1px solid var(--line); }
+    .pillar:first-child { border-top: none; }
+    .quote, .letter, .fitting { padding: 100px 0; }
+    .foot-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 520px) {
+    .legal { flex-direction: column; gap: 8px; text-align: center; }
+    .letter input { font-size: 22px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .curtain { display: none; }
+    .track, .seal svg, .arch svg { animation: none; }
+    .js .reveal { opacity: 1; transform: none; transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Garment illustrations (inline line-art, recoloured with CSS variables) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <g id="hanger" style="fill:none;stroke:var(--outline)">
+      <path d="M100 36 L100 28 C100 22 108 20 108 13 C108 7 103 4 98 6"/>
+      <path d="M100 36 L30 72 L170 72 Z"/>
+    </g>
+
+    <symbol id="coat" viewBox="0 0 200 300">
+      <g style="fill:none;stroke:var(--outline);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round">
+        <use href="#hanger"/>
+      </g>
+      <g style="fill:var(--garment);stroke:var(--outline);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round">
+        <path d="M86 76 L58 86 L40 104 L30 226 L54 230 L62 140 L64 272 L136 272 L138 140 L146 230 L170 226 L160 104 L142 86 L114 76 L100 108 Z"/>
+      </g>
+      <g style="fill:none;stroke:var(--detail);stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round">
+        <path d="M100 108 V272"/>
+        <path d="M86 76 L94 132 L100 118 L106 132 L114 76"/>
+        <path d="M64 176 H136 M64 186 H136"/>
+        <path d="M64 112 L62 140 M136 112 L138 140"/>
+        <path d="M72 222 H90 M110 222 H128"/>
+        <circle cx="108" cy="208" r="2"/><circle cx="108" cy="238" r="2"/>
+      </g>
+    </symbol>
+
+    <symbol id="knit" viewBox="0 0 200 300">
+      <g style="fill:none;stroke:var(--outline);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round">
+        <use href="#hanger"/>
+      </g>
+      <g style="fill:var(--garment);stroke:var(--outline);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round">
+        <path d="M84 76 Q100 92 116 76 L146 88 L172 156 L152 166 L140 132 L140 240 L60 240 L60 132 L48 166 L28 156 L54 88 Z"/>
+      </g>
+      <g style="fill:none;stroke:var(--detail);stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round">
+        <path d="M89 77 Q100 88 111 77"/>
+        <path d="M60 226 H140"/>
+        <path d="M66 226 V240 M74 226 V240 M82 226 V240 M90 226 V240 M98 226 V240 M106 226 V240 M114 226 V240 M122 226 V240 M130 226 V240 M136 226 V240" stroke-width=".8"/>
+        <path d="M32 146 L52 155 M168 146 L148 155"/>
+      </g>
+    </symbol>
+
+    <symbol id="skirt" viewBox="0 0 200 300">
+      <g style="fill:none;stroke:var(--outline);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round">
+        <use href="#hanger"/>
+      </g>
+      <g style="fill:var(--garment);stroke:var(--outline);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round">
+        <path d="M72 82 L128 82 L164 266 L36 266 Z"/>
+      </g>
+      <g style="fill:none;stroke:var(--detail);stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round">
+        <path d="M72 98 H128"/>
+        <path d="M80 98 L60 266 M94 98 L86 266 M106 98 L114 266 M120 98 L140 266"/>
+        <circle cx="100" cy="90" r="2"/>
+      </g>
+    </symbol>
+
+    <symbol id="blouse" viewBox="0 0 200 300">
+      <g style="fill:none;stroke:var(--outline);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round">
+        <use href="#hanger"/>
+      </g>
+      <g style="fill:var(--garment);stroke:var(--outline);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round">
+        <path d="M82 76 L54 88 L32 156 L54 166 L66 128 L66 240 L134 240 L134 128 L146 166 L168 156 L146 88 L118 76 Q100 92 82 76 Z"/>
+      </g>
+      <g style="fill:none;stroke:var(--detail);stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round">
+        <path d="M100 92 C88 90 82 100 86 108 C92 114 98 102 100 92 C102 102 108 114 114 108 C118 100 112 90 100 92"/>
+        <path d="M96 106 L90 138 M104 106 L110 138"/>
+        <circle cx="100" cy="160" r="1.8"/><circle cx="100" cy="184" r="1.8"/><circle cx="100" cy="208" r="1.8"/>
+        <path d="M36 148 L56 157 M164 148 L144 157"/>
+      </g>
+    </symbol>
+
+    <symbol id="dress" viewBox="0 0 200 300">
+      <g style="fill:none;stroke:var(--outline);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round">
+        <use href="#hanger"/>
+      </g>
+      <g style="fill:var(--garment);stroke:var(--outline);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round">
+        <path d="M86 76 L82 124 L48 268 L152 268 L118 124 L114 76 Q100 98 86 76 Z"/>
+      </g>
+      <g style="fill:none;stroke:var(--detail);stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round">
+        <path d="M82 124 H118"/>
+        <path d="M100 124 C90 117 84 124 88 131 C94 135 98 129 100 124 C102 129 106 135 112 131 C116 124 110 117 100 124"/>
+        <path d="M97 132 L92 154 M103 132 L108 154"/>
+        <path d="M90 140 L70 266 M110 140 L130 266 M100 160 V266"/>
+        <path d="M52 252 H148"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- Curtain intro -->
+<div class="curtain" aria-hidden="true">
+  <i></i><i></i>
+  <b><small>Maison</small>Rosalie</b>
+</div>
+
+<header class="top">
+  <div class="wrap nav">
+    <ul>
+      <li><a class="l" href="#index">The Index</a></li>
+      <li><a class="l" href="#fitting">Fitting Room</a></li>
+      <li><a class="l" href="#story">Story</a></li>
+    </ul>
+    <a href="#" class="logo"><small>Maison</small><span>Rosalie</span></a>
+    <ul class="r">
+      <li><a class="l" href="#">Search</a></li>
+      <li><a class="l" href="#">Account</a></li>
+      <li><a class="l" href="#">Bag (0)</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+
+  <!-- Hero -->
+  <div class="wrap hero">
+    <div>
+      <span class="eyebrow">Autumn / Winter 2026</span>
+      <h1>Dressed in<span class="l2"><em>quiet</em></span>confidence.</h1>
+      <p class="lede">Considered tailoring and soft, enduring pieces, designed to be worn for decades and loved for longer.</p>
+      <div class="cta">
+        <a href="#index" class="btn">Enter the Index</a>
+        <a href="#story" class="tlink">Our story</a>
+      </div>
+    </div>
+
+    <div class="arch-wrap">
+      <div class="arch">
+        <svg viewBox="0 0 200 300" role="img" aria-label="Illustration of a tailored coat on a hanger"><use href="#coat"/></svg>
+      </div>
+      <span class="vert">Est. MMXXIV — Atelier</span>
+      <div class="seal" aria-hidden="true">
+        <svg viewBox="0 0 160 160">
+          <circle cx="80" cy="80" r="78" fill="#5c1427"/>
+          <path id="ring" d="M80,80 m-52,0 a52,52 0 1,1 104,0 a52,52 0 1,1 -104,0" fill="none"/>
+          <text fill="#f8dbe0" font-family="Jost, sans-serif" font-size="10.5" font-weight="400">
+            <textPath href="#ring" textLength="320" lengthAdjust="spacing">MAISON ROSALIE • ATELIER • EST. 2024 • FINE TAILORING •</textPath>
+          </text>
+        </svg>
+        <b>R</b>
+      </div>
+    </div>
+  </div>
+
+  <!-- Marquee -->
+  <div class="marquee" aria-hidden="true">
+    <div class="track">
+      <span>Cashmere</span><span>Silk</span><span>Merino</span><span>Linen</span><span>Tailoring</span><span>Pearl buttons</span>
+      <span>Cashmere</span><span>Silk</span><span>Merino</span><span>Linen</span><span>Tailoring</span><span>Pearl buttons</span>
+    </div>
+  </div>
+
+  <!-- Index -->
+  <section class="index" id="index">
+    <div class="wrap">
+      <div class="idx-head">
+        <div class="reveal">
+          <span class="eyebrow">The Index</span>
+          <h2>Five pieces,<br><em>chosen with care.</em></h2>
+        </div>
+        <p class="reveal" style="--d:.15s">Hover over a name to see the piece. Each one is cut in small runs from natural fibres and finished by hand.</p>
+      </div>
+
+      <ul class="idx">
+        <li class="reveal"><a href="#" data-item="coat">
+          <span class="n">01</span>
+          <svg class="ico" viewBox="0 0 200 300"><use href="#coat"/></svg>
+          <span class="t">The Camille Coat</span><span class="c">Wool &amp; cashmere</span><span class="p">$420</span><span class="ar">→</span>
+        </a></li>
+        <li class="reveal"><a href="#" data-item="knit">
+          <span class="n">02</span>
+          <svg class="ico" viewBox="0 0 200 300"><use href="#knit"/></svg>
+          <span class="t">The Odette Knit</span><span class="c">Pure cashmere</span><span class="p">$265</span><span class="ar">→</span>
+        </a></li>
+        <li class="reveal"><a href="#" data-item="skirt">
+          <span class="n">03</span>
+          <svg class="ico" viewBox="0 0 200 300"><use href="#skirt"/></svg>
+          <span class="t">The Margaux Skirt</span><span class="c">Pleated wool crêpe</span><span class="p">$195</span><span class="ar">→</span>
+        </a></li>
+        <li class="reveal"><a href="#" data-item="blouse">
+          <span class="n">04</span>
+          <svg class="ico" viewBox="0 0 200 300"><use href="#blouse"/></svg>
+          <span class="t">The Hélène Blouse</span><span class="c">Washed silk</span><span class="p">$210</span><span class="ar">→</span>
+        </a></li>
+        <li class="reveal"><a href="#" data-item="dress">
+          <span class="n">05</span>
+          <svg class="ico" viewBox="0 0 200 300"><use href="#dress"/></svg>
+          <span class="t">The Éléonore Dress</span><span class="c">Silk faille</span><span class="p">$480</span><span class="ar">→</span>
+        </a></li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="peek" aria-hidden="true">
+    <div class="peek-in"><svg viewBox="0 0 200 300"><use href="#coat"/></svg></div>
+  </div>
+
+  <!-- Quote -->
+  <section class="quote" id="story">
+    <div class="wrap">
+      <span class="eyebrow reveal" style="position:relative">Our Story</span>
+      <blockquote class="reveal" style="--d:.1s">Nothing here is loud.<em>Everything here is remembered.</em></blockquote>
+      <div class="sign reveal" style="--d:.2s">Rosalie</div>
+      <div class="sign-sub reveal" style="--d:.25s">Founder &amp; Creative Director</div>
+    </div>
+  </section>
+
+  <!-- Fitting room -->
+  <section class="fitting" id="fitting">
+    <div class="wrap fit-grid">
+      <div class="fit-stage reveal" id="stage" data-shade="blush">
+        <svg viewBox="0 0 200 300" role="img" aria-label="Illustration of the Éléonore dress"><use href="#dress"/></svg>
+      </div>
+      <div class="fit-copy reveal" style="--d:.15s">
+        <span class="eyebrow">The Fitting Room</span>
+        <h2>The Éléonore Dress,<br><em>in your shade.</em></h2>
+        <p class="d">A bias-cut silk faille with a softly gathered skirt and a bow at the waist. Choose a shade and see how it falls.</p>
+        <div class="swatches" role="group" aria-label="Choose a shade">
+          <button class="sw" data-shade="blush" aria-pressed="true" aria-label="Blush"></button>
+          <button class="sw" data-shade="bordeaux" aria-pressed="false" aria-label="Bordeaux"></button>
+          <button class="sw" data-shade="blanc" aria-pressed="false" aria-label="Blanc"></button>
+        </div>
+        <div class="shade-line" id="shadeName">Blush</div>
+        <div class="shade-note" id="shadeNote">Soft as a handwritten note.</div>
+        <a href="#" class="btn">Reserve yours — $480</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pillars -->
+  <section class="pillars">
+    <div class="wrap">
+      <div class="pillar reveal">
+        <div class="num">I</div>
+        <h3>Fabric</h3>
+        <p>Cashmere, silk, wool and linen from mills we have known for years. Chosen for how it ages, not just how it looks.</p>
+      </div>
+      <div class="pillar reveal" style="--d:.12s">
+        <div class="num">II</div>
+        <h3>Cut</h3>
+        <p>Patterns drawn to skim and never cling. A silhouette that stays long after the season has gone.</p>
+      </div>
+      <div class="pillar reveal" style="--d:.24s">
+        <div class="num">III</div>
+        <h3>Finish</h3>
+        <p>Hand-finished seams, pearl buttons and linings that feel as good as the outside looks.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Letter -->
+  <section class="letter">
+    <div class="wrap">
+      <span class="eyebrow reveal">The Letter</span>
+      <h2 class="reveal" style="--d:.1s">A note from the atelier,<br><em>twice a season.</em></h2>
+      <p class="reveal" style="--d:.18s">New collections, private sales and the occasional thought on dressing well. Nothing more.</p>
+      <form id="letterForm" class="reveal" style="--d:.25s">
+        <input type="email" placeholder="Your email address" aria-label="Email address" required>
+        <button type="submit">Send →</button>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="flogo">Maison Rosalie</div>
+        <p>Timeless women's clothing, designed with care and made to last.</p>
+      </div>
+      <div>
+        <h5>Shop</h5>
+        <ul><li><a href="#">New Arrivals</a></li><li><a href="#">Tailoring</a></li><li><a href="#">Knitwear</a></li><li><a href="#">Evening</a></li></ul>
+      </div>
+      <div>
+        <h5>Care</h5>
+        <ul><li><a href="#">Shipping</a></li><li><a href="#">Returns</a></li><li><a href="#">Size Guide</a></li><li><a href="#">Book a Fitting</a></li></ul>
+      </div>
+      <div>
+        <h5>Follow</h5>
+        <ul><li><a href="#">Instagram</a></li><li><a href="#">Pinterest</a></li><li><a href="#">Journal</a></li></ul>
+      </div>
+    </div>
+  </div>
+  <div class="mega" aria-hidden="true">Rosalie</div>
+  <div class="legal wrap">
+    <span>© 2026 Maison Rosalie</span>
+    <span>Privacy · Terms</span>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  (function () {
+    var items = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) { items.forEach(function (el) { el.classList.add('in'); }); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: .15, rootMargin: '0px 0px -40px 0px' });
+    items.forEach(function (el) { io.observe(el); });
+  })();
+
+  // Index: floating preview that follows the cursor
+  (function () {
+    var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if (!fine) return;
+    var peek = document.querySelector('.peek');
+    var use = peek.querySelector('use');
+    var tx = 0, ty = 0, x = 0, y = 0, on = false;
+
+    function loop() {
+      if (!on) return;
+      x += (tx - x) * .14;
+      y += (ty - y) * .14;
+      peek.style.transform = 'translate(' + (x + 40) + 'px,' + (y - 130) + 'px) rotate(' + ((tx - x) * .04) + 'deg)';
+      requestAnimationFrame(loop);
+    }
+
+    document.querySelectorAll('.idx a').forEach(function (a) {
+      a.addEventListener('mouseenter', function (e) {
+        use.setAttribute('href', '#' + a.dataset.item);
+        peek.classList.add('on');
+        if (!on) { x = tx = e.clientX; y = ty = e.clientY; on = true; loop(); }
+      });
+      a.addEventListener('mousemove', function (e) { tx = e.clientX; ty = e.clientY; });
+      a.addEventListener('mouseleave', function () { peek.classList.remove('on'); on = false; });
+      a.addEventListener('click', function (e) { e.preventDefault(); });
+    });
+  })();
+
+  // Fitting room: choose a shade
+  (function () {
+    var stage = document.getElementById('stage');
+    var nameEl = document.getElementById('shadeName');
+    var noteEl = document.getElementById('shadeNote');
+    var sws = document.querySelectorAll('.sw');
+    var copy = {
+      blush:    ['Blush',    'Soft as a handwritten note.'],
+      bordeaux: ['Bordeaux', 'Deep, dignified and made for dinner.'],
+      blanc:    ['Blanc',    'Crisp as fresh linen on a summer morning.']
+    };
+    sws.forEach(function (b) {
+      b.addEventListener('click', function () {
+        var s = b.dataset.shade;
+        stage.dataset.shade = s;
+        nameEl.textContent = copy[s][0];
+        noteEl.textContent = copy[s][1];
+        sws.forEach(function (o) { o.setAttribute('aria-pressed', o === b ? 'true' : 'false'); });
+        stage.classList.remove('pop'); void stage.offsetWidth; stage.classList.add('pop');
+      });
+    });
+  })();
+
+  // Newsletter
+  document.getElementById('letterForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    this.outerHTML = '<div class="thanks">Thank you, welcome to the Maison.</div>';
+  });
+</script>
+</body>
+</html>

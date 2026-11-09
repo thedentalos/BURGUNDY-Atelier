@@ -1,0 +1,21 @@
+node_modules/
+.next/
+out/
+.env*
+!.env.example
+.DS_Store
+*.tsbuildinfo
+next-env.d.ts
+.claude/settings.local.json
+
+.next-salon/
+.next-preview/
+
+# Generated QA artefacts and preview renders (not source)
+tests/
+templates/previews/
+brand-assets/raw-*.png
+
+# Local build + deploy caches
+.next-verify/
+.vercel/
